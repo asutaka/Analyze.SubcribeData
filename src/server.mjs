@@ -9,5 +9,7 @@ app.get('/', async (req, res)  => {
 
 app.listen(3000, () => console.log('server running!'));
 // getServerTime().then(data => console.log(data));
-const socketClient = new SocketClient('ws/!miniTicker@arr');
-socketClient.setHandler('depthUpdate', (params) => console.log(JSON.stringify(params)));
+// const socketClient = new SocketClient('ws/!miniTicker@arr');
+// socketClient.setHandler('depthUpdate', (params) => console.log(JSON.stringify(params)));
+
+
