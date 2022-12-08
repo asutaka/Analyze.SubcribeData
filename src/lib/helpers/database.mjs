@@ -44,29 +44,6 @@ const findOne = (table) =>{
     });
 };
 
-const find = (table, from, to, callback) =>{
-    conn();
-    mongoose.connection.collection(table).find({}, function(err, res){
-        if(err){
-            console.log(err);
-        }
-        else{
-            return callback(res);
-        }
-    });
-
-    // mongoose.connection.collection(table).find({$and: [{ T: { $gt: from } }, { T: { $lt: to } }] }, function(err, res){
-    //     if(err){
-    //         console.log(err);
-    //     }
-    //     else{
-    //         res.foreach(function(tmp){
-    //             console.log(tmp);
-    //         })
-    //     }
-    // });
-};
-
 const addRecord = (table, e, c, o, h, l, v, q) => {
     conn();
     var dat = {
@@ -112,4 +89,4 @@ const deleteRecord = (table, id) =>{
     });
 };
 
-export default {conn, create, findOne, find, addRecord, updateRecord, deleteRecord};
+export default {conn, create, findOne, addRecord, updateRecord, deleteRecord};

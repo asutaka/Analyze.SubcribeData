@@ -18,8 +18,8 @@ app.get('/:name', function(req, res) {
     let name = req.params.name;
     const collection  = connection.db.collection(name);
     var promise = collection.find({}).toArray();
-    promise.then(function(data){
-        res.status(200).json({data: data }); 
+    promise.then(function(result){
+        res.status(200).json({data: result }); 
     })
 });
 
@@ -30,8 +30,8 @@ app.get('/:name/:from', function(req, res) {
 
     const collection  = connection.db.collection(name);
     var promise = collection.find({}).toArray();
-    promise.then(function(contacts){
-        res.status(200).json({data: contacts }); 
+    promise.then(function(result){
+        res.status(200).json({data: result }); 
     })
 });
 
@@ -43,8 +43,8 @@ app.get('/:name/:from/:to', function(req, res) {
     
     const collection  = connection.db.collection(name);
     var promise = collection.find({}).toArray();
-    promise.then(function(contacts){
-        res.status(200).json({data: contacts }); 
+    promise.then(function(result){
+        res.status(200).json({data: result }); 
     })
 });
 
