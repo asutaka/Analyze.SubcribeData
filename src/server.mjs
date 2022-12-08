@@ -14,13 +14,37 @@ app.listen(3000, () => console.log('server running!'));
 
 await db.conn();
 
+app.get('/:name', function(req, res) {
+    let name = req.params.name;
+    const collection  = connection.db.collection(name);
+    var promise = collection.find({}).toArray();
+    promise.then(function(data){
+        res.status(200).json({data: data }); 
+    })
+});
 
-app.get('/data', function(req, res) {
-    const collection  = connection.db.collection("C98USDT");
+app.get('/:name/:from', function(req, res) {
+    let name = req.params.name;
+    let from = req.params.from;
+    console.log(from);
+
+    const collection  = connection.db.collection(name);
     var promise = collection.find({}).toArray();
     promise.then(function(contacts){
         res.status(200).json({data: contacts }); 
-        // console.log(contacts);
+    })
+});
+
+app.get('/:name/:from/:to', function(req, res) {
+    let name = req.params.name;
+    let from = req.params.from;
+    let to = req.params.to;
+    console.log(from, to);
+    
+    const collection  = connection.db.collection(name);
+    var promise = collection.find({}).toArray();
+    promise.then(function(contacts){
+        res.status(200).json({data: contacts }); 
     })
 });
 
