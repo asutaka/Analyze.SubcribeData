@@ -35,7 +35,10 @@ class SocketClient {
 
     this._ws.onmessage = (msg) => {
       try {
-        const message = JSON.parse(msg.data);
+        const mes = JSON.parse(msg.data);
+        const message = mes.filter(function(item) {
+          return item.s.indexOf("USDT") > -1;
+      });
         if (this.isMultiStream(message)) {
           this._handlers.get(message.stream).forEach(cb => cb(message));
         } else if (message.e && this._handlers.has(message.e)) {
