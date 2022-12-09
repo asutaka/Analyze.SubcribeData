@@ -7,7 +7,6 @@ const conn = async () => {
         //1: connected
         //2: connecting
         //3: disconnecting
-        console.log(mongoose.connection.readyState);
         if(mongoose.connection.readyState == 1)
             return;
 

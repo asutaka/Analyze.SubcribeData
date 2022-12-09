@@ -5,6 +5,7 @@ import mongoose from 'mongoose'
 import express from "express";
 const app = express();
 const connection = mongoose.connection;
+const LIMIT = 2;
 
 app.get('/', async (req, res)  => {
     res.status(200).json({msg: "hello world" });
@@ -17,35 +18,49 @@ await db.conn();
 app.get('/:name', function(req, res) {
     let name = req.params.name;
     const collection  = connection.db.collection(name);
-    var promise = collection.find({}).toArray();
-    promise.then(function(result){
-        res.status(200).json({data: result }); 
-    })
+    collection.count({}, function( err, count){
+        var skip = 0;
+        if(count > LIMIT){
+            skip = count - LIMIT;
+        }
+        var promise = collection.find({}).skip(skip).limit(LIMIT).toArray();
+        promise.then(function(result){
+            res.status(200).json({data: result }); 
+        })
+    });
 });
 
 app.get('/:name/:from', function(req, res) {
     let name = req.params.name;
     let from = req.params.from;
-    console.log(from);
 
     const collection  = connection.db.collection(name);
-    var promise = collection.find({}).toArray();
-    promise.then(function(result){
-        res.status(200).json({data: result }); 
-    })
+    collection.find({ T: { $gte: parseInt(from) } }).count({}, function( err, count){
+        var skip = 0;
+        if(count > LIMIT){
+            skip = count - LIMIT;
+        }
+        collection.find({ T: { $gte: parseInt(from) } }).skip(skip).limit(LIMIT).toArray().then(function(result){
+            res.status(200).json({data: result }); 
+        })
+    });
 });
 
 app.get('/:name/:from/:to', function(req, res) {
     let name = req.params.name;
     let from = req.params.from;
     let to = req.params.to;
-    console.log(from, to);
     
     const collection  = connection.db.collection(name);
-    var promise = collection.find({}).toArray();
-    promise.then(function(result){
-        res.status(200).json({data: result }); 
-    })
+    collection.find({ T: { $gte: parseInt(from), $lt: parseInt(to) } }).count({}, function( err, count){
+        var skip = 0;
+        if(count > LIMIT){
+            skip = count - LIMIT;
+        }
+        collection.find({ T: { $gte: parseInt(from), $lt: parseInt(to) } }).skip(skip).limit(LIMIT).toArray().then(function(result){
+            res.status(200).json({data: result }); 
+        })
+    });
 });
 
 
