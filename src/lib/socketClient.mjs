@@ -1,5 +1,6 @@
 import WebSocket from 'ws';
 import logger from './logger.mjs';
+import hand from './handle.mjs';
 
 class SocketClient {
   constructor(path, baseUrl) {
@@ -38,15 +39,18 @@ class SocketClient {
         const mes = JSON.parse(msg.data);
         const message = mes.filter(function(item) {
           return item.s.indexOf("USDT") > -1;
-      });
+        });
         if (this.isMultiStream(message)) {
           this._handlers.get(message.stream).forEach(cb => cb(message));
         } else if (message.e && this._handlers.has(message.e)) {
           this._handlers.get(message.e).forEach(cb => {
             cb(message);
           });
-        } else {
-          logger.warn('Unknown method', message);
+        } 
+        else 
+        {
+          hand.handleData(message);
+          // logger.warn('Unknown method', message);
         }
       } catch (e) {
         logger.warn('Parse message failed', e);

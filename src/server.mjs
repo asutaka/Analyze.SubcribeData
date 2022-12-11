@@ -1,4 +1,4 @@
-import getServerTime from './lib/services/getServerTime.mjs';
+import time from './lib/services/getServerTime.mjs';
 import SocketClient from './lib/socketClient.mjs';
 import db from './lib/helpers/database.mjs';
 import mongoose from 'mongoose'
@@ -63,19 +63,14 @@ app.listen(3000, () => console.log('server running!'));
 //     });
 // });
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const socketClient = new SocketClient('ws/!miniTicker@arr');
-socketClient.setHandler('depthUpdate', (params) => {
-    // params.forEach(element => {
-    //     console.log('eo hieu kieu gi');
-    //     // console.log("element",element);
-    //     return;
-    // });
-    // console.log("param",JSON.stringify(params))
-});
+// const socketClient = new SocketClient('ws/!miniTicker@arr');
+
 
 
 // db.createCollection("C98USDT");
-// getServerTime().then(data => console.log(data));
+time.getNextTime15M(function(res){
+    console.log(res);
+});
 
 // const socketClient = new SocketClient('ws/!miniTicker@arr');
 // socketClient.setHandler('depthUpdate', (params) => console.log(JSON.stringify(params)));
