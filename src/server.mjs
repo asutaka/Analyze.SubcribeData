@@ -72,5 +72,5 @@ time.getNextTime15M(function(res){
     console.log(res);
 });
 
-// const socketClient = new SocketClient('ws/!miniTicker@arr');
+const socketClient = new SocketClient('ws/!miniTicker@arr');
 // socketClient.setHandler('depthUpdate', (params) => console.log(JSON.stringify(params)));
