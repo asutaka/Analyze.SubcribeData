@@ -12,8 +12,7 @@ app.get('/', async (req, res)  => {
 })
 
 app.listen(3000, () => console.log('server running!'));
-
-// await db.conn();
+await db.conn();
 
 // app.get('/:name', function(req, res) {
 //     let name = req.params.name;
@@ -67,10 +66,10 @@ app.listen(3000, () => console.log('server running!'));
 
 
 
-// db.createCollection("C98USDT");
-time.getNextTime15M(function(res){
-    console.log(res);
-});
+//db.create("USDT");
+// time.getNextTime15M(function(res){
+//     console.log(res);
+// });
 
 const socketClient = new SocketClient('ws/!miniTicker@arr');
 // socketClient.setHandler('depthUpdate', (params) => console.log(JSON.stringify(params)));

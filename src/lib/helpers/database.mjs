@@ -58,6 +58,12 @@ const addRecord = (table, e, c, o, h, l, v, q) => {
     mongoose.connection.collection(table).insertOne(dat);
 };
 
+const addMultiRecord = (table, data) => {
+    conn();
+    console.log('dat',data);
+    mongoose.connection.collection(table).insertMany(data);
+};
+
 const updateRecord = (table, id, e, c, o, h, l, v, q) =>{
     conn();
     mongoose.connection.collection(table).findOneAndUpdate({ _id: -1 }, { T : e, C : c, O : o, H : h, L : l, V : v, Q : q }, {new: true}, function(err, res){
@@ -88,4 +94,4 @@ const deleteRecord = (table, id) =>{
     });
 };
 
-export default {conn, create, findOne, addRecord, updateRecord, deleteRecord};
+export default {conn, create, findOne, addRecord, addMultiRecord, updateRecord, deleteRecord};

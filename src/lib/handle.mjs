@@ -1,8 +1,10 @@
-
 import mongoose from 'mongoose'
+
 const handleData = async (data) => {
-    // console.log('data', data);
-    console.log(data.length);
+    if(data.length > 0)
+    {
+        // mongoose.connection.collection("USDT").insertMany(data);
+    }
 }
 
 export default { handleData };
