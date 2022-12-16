@@ -184,4 +184,30 @@ const getNextTime15M = function(callback){
   return callback(datum.getTime());
 }
 
-export default { getTime, getNextTime15M, getNextTime1H, getNextTime4H, getNextTime1D, getNextTime1W, getNextTime1M };
+const getCurTime15M = function(callback){
+  var currTime = new Date();
+  var currMinute = currTime.getMinutes();
+  var minute = 0;
+  var hour =  currTime.getHours();
+  var day = currTime.getDay();
+  var month = currTime.getMonth();
+  var year = currTime.getFullYear();
+  //////////////////////////////////////////////////////////////////////////////////////////////
+  //for Minute
+  if(currMinute >= 45)
+  {
+    minute = 45;
+  }
+  else if(currMinute >= 30)
+  {
+    minute = 30;
+  }
+  else if(currMinute >= 15)
+  {
+    minute = 15;
+  }
+  var datum = new Date(Date.UTC(year, month, day, hour, minute, 0));
+  return callback(datum.getTime());
+}
+
+export default { getTime, getNextTime15M, getNextTime1H, getNextTime4H, getNextTime1D, getNextTime1W, getNextTime1M, getCurTime15M };

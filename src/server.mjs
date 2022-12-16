@@ -3,6 +3,8 @@ import SocketClient from './lib/socketClient.mjs';
 import db from './lib/helpers/database.mjs';
 import mongoose from 'mongoose'
 import express from "express";
+import cronjob from "./cronjob.mjs"
+
 const app = express();
 const connection = mongoose.connection;
 const LIMIT = 2;
@@ -62,18 +64,14 @@ await db.conn();
 //     });
 // });
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// const socketClient = new SocketClient('ws/!miniTicker@arr');
 
 
 
-db.create("USDT1");
-db.create("USDT2");
-db.create("USDT3");
-db.create("USDT4");
-db.create("USDT5");
+
+//db.create("USDT");
 // time.getNextTime15M(function(res){
 //     console.log(res);
 // });
 
 // const socketClient = new SocketClient('ws/!miniTicker@arr');
-// socketClient.setHandler('depthUpdate', (params) => console.log(JSON.stringify(params)));
+cronjob.Job1();
