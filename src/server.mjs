@@ -16,7 +16,7 @@ app.get('/', async (req, res)  => {
 app.listen(3000, () => console.log('server running!'));
 await db.conn();
 
-// app.get('/:name', function(req, res) {
+// app.get('/:name', function(req, res) {   
 //     let name = req.params.name;
 //     const collection  = connection.db.collection(name);
 //     collection.count({}, function( err, count){
@@ -75,3 +75,7 @@ await db.conn();
 
 // const socketClient = new SocketClient('ws/!miniTicker@arr');
 cronjob.Job1();
+// cronjob.Job2();
+// cronjob.Job3();
+// cronjob.Job4();
+// cronjob.Job5();

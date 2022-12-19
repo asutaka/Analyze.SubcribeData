@@ -64,9 +64,9 @@ const addMultiRecord = (table, data) => {
     mongoose.connection.collection(table).insertMany(data);
 };
 
-const updateRecord = (table, id, e, c, o, h, l, v, q) =>{
+const updateRecord = (table, id, e, c, h, l, v, q) =>{
     conn();
-    mongoose.connection.collection(table).findOneAndUpdate({ _id: -1 }, { T : e, C : c, O : o, H : h, L : l, V : v, Q : q }, {new: true}, function(err, res){
+    mongoose.connection.collection(table).findOneAndUpdate({ _id: -1 }, { T : e, C : c, H : h, L : l, V : v, Q : q }, {new: true}, function(err, res){
         if(err){
             console.log(err);
         }
