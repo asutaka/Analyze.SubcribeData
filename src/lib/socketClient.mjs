@@ -38,7 +38,7 @@ class SocketClient {
       try {
         const mes = JSON.parse(msg.data);
         const message = mes.filter(function(item) {
-          return item.s.indexOf("USDT") > -1;
+          return item.s.indexOf("USDT") > -1 && item.s.indexOf("UPUSDT") == -1 && item.s.indexOf("DOWNUSDT") == -1 && item.s.endsWith("T");
         });
         if (this.isMultiStream(message)) {
           this._handlers.get(message.stream).forEach(cb => cb(message));

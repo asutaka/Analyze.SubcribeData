@@ -12,68 +12,64 @@ new cron.CronJob('* * * * * *', function(){
     })
     // console.log("time", time);
 }).start();
-await database.conn();
-
 
 let arrTable = [];
-GetTable();
-
-function GetTable() {
-    arrTable = [];
+const InitTable = async() => {
     const collection  = connection.db.collection("TABLE");
     collection.find({}).skip(0).limit(LIMIT).toArray()
         .then(function(result){
             result.forEach( (item) => {
                 arrTable.push({ "name": item.name });
             });
-            // console.log(arrTable);
         });
 }
 
 const Job1 = async () => {
-    const collection  = connection.db.collection("USDT");
+    let MainName = "USDT1";
+
+    const collection  = connection.db.collection(MainName);
     new cron.CronJob('1/5 * * * * *', function(){
         // var currTime = new Date();
         // console.log("time1", currTime);
         collection.find({}).skip(0).limit(LIMIT).toArray()
         .then(function(result){
             // console.log("result",result.length);
-            result.forEach( (item) => {
+            result.forEach( async (item) => {
+                // database.deleteRecord(MainName, item._id);
                 let check_ = arrTable.some(v => v.name == item.s) 
-                if(check_ < 0)
+                if(check_)
                 {
-                    connection.db.collection("TABLE").insertOne({ "name": item.s });
-                    GetTable();
+                    // database.deleteRecord(MainName, item._id);
+
+
+
+                    // let tableName = item.s + "_15M";
+                    // let collectDetail  = connection.db.collection(tableName);
+                    // collectDetail.findOne({E: time }, {}, function(err, res){
+                    //     if(err){
+                    //         console.log(err);
+                    //     }
+                    //     else{
+                    //         if(res == null){
+                    //             //insert
+                    //             database.addRecord = (item.s, time, item.c, item.o, item.h, item.l, item.v, item.q, item.E)
+                    //         }
+                    //         else{
+                    //             //update
+                    //             let high = item.h;
+                    //             if(res.h > item.h)
+                    //                 high = res.h;
+                    //             let low = item.l;
+                    //             if(res.l < item.l)
+                    //                 low = res.l;
+
+                    //             database.updateRecord(item.s, res._id, time, res.c, high, low, item.v + res.v, item.q + res.q, res.E);
+                    //         }
+
+                    //         database.deleteRecord(MainName, item._id);
+                    //     }
+                    // });
                 }
-
-
-                // // let collectDetail  = connection.db.collection(item.s);
-                // let collectDetail  = connection.db.collection("ABC");
-                // collectDetail.findOne({E: time }, {}, function(err, res){
-                //     if(err){
-                //         console.log(err);
-                //     }
-                //     else{
-                //         // if(res == null){
-                //         //     //insert
-                //         //     database.addRecord = (item.s, time, res.c, res.o, res.h, res.l, res.v, res.q)
-                //         // }
-                //         // else{
-                //         //     //update
-                //         //     let high = item.h;
-                //         //     if(res.h > item.h)
-                //         //         high = res.h;
-                //         //     let low = item.l;
-                //         //     if(res.l < item.l)
-                //         //         low = res.l;
-
-                //         //     database.updateRecord(item.s, res._id, time, res.c, high, low, item.v + res.v, item.q + res.q);
-                //         // }
-                //         // // console.log("res",res);
-                //         // // console.log(res.E, res.s);
-                //     }
-                // });
-                // // console.log('item',item);
             });
         })
     }).start();
@@ -127,4 +123,4 @@ const Job5 = async () => {
     }).start();
 }
 
-export default { Job1, Job2, Job3, Job4, Job5 };
+export default { InitTable, Job1, Job2, Job3, Job4, Job5 };

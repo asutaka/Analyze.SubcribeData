@@ -43,7 +43,7 @@ const findOne = (table) =>{
     });
 };
 
-const addRecord = (table, e, c, o, h, l, v, q) => {
+const addRecord = (table, e, c, o, h, l, v, q, ut) => {
     conn();
     var dat = {
         T : e,
@@ -52,7 +52,8 @@ const addRecord = (table, e, c, o, h, l, v, q) => {
         H : h,
         L : l,
         V : v,
-        Q : q
+        Q : q,
+        UT: ut
     };
 
     mongoose.connection.collection(table).insertOne(dat);
@@ -64,9 +65,9 @@ const addMultiRecord = (table, data) => {
     mongoose.connection.collection(table).insertMany(data);
 };
 
-const updateRecord = (table, id, e, c, h, l, v, q) =>{
+const updateRecord = (table, id, e, c, h, l, v, q, ut) =>{
     conn();
-    mongoose.connection.collection(table).findOneAndUpdate({ _id: -1 }, { T : e, C : c, H : h, L : l, V : v, Q : q }, {new: true}, function(err, res){
+    mongoose.connection.collection(table).findOneAndUpdate({ _id: id }, { T : e, C : c, H : h, L : l, V : v, Q : q, UT: ut }, {new: true}, function(err, res){
         if(err){
             console.log(err);
         }
@@ -89,7 +90,7 @@ const deleteRecord = (table, id) =>{
         }
         else{
             console.log("Deleted Record:", id);
-            console.log(res);
+            // console.log(res);
         }
     });
 };

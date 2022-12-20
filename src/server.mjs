@@ -74,6 +74,7 @@ await db.conn();
 // });
 
 // const socketClient = new SocketClient('ws/!miniTicker@arr');
+cronjob.InitTable();
 cronjob.Job1();
 // cronjob.Job2();
 // cronjob.Job3();
